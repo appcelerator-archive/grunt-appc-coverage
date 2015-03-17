@@ -1,4 +1,4 @@
-# grunt-appc-coverage
+# grunt-appc-coverage [![Coverage Status](https://coverage.appcelerator.com/appcelerator-modules/grunt-appc-coverage/label_master.svg)](https://coverage.appcelerator.com/appcelerator-modules#grunt-appc-coverage)
 
 > Grunt task to load coverage results and submit them to coverage.appcelerator.com
 
