@@ -11,6 +11,14 @@ describe('library', function () {
         test.object(options)
             .hasProperty('service')
             .hasProperty('git');
+
+        test.object(options.service)
+            .hasProperty('name')
+            .hasProperty('jobId');
+
+        if (process.env.TRAVIS) {
+            test.assert(options.service.name === 'travis-ci', 'travis-ci not being set');
+        }
     });
 
     it('coverage.parseLcov();', function (done) {
