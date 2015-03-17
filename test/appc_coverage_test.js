@@ -1,5 +1,5 @@
 var test = require('unit.js'),
-    coverage = require('../lib/appc-coverage.js'),
+    coverage = require('../lib/appcCoverage.js'),
     fs = require('fs'),
     dns = require('dns'),
     url = require('url');

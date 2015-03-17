@@ -10,7 +10,7 @@
 
 var NOT_FOUND = 'No src files could be found for coverage.appcelerator.com';
 
-var coverage = require('../lib/appc-coverage');
+var coverage = require('../lib/appcCoverage');
 
 module.exports = function (grunt) {
 
@@ -73,6 +73,6 @@ module.exports = function (grunt) {
     });
   }
 
-  grunt.registerMultiTask('appc_coverage', 'Grunt task to load coverage results and submit them to coverage.appcelerator.com', appcCoverage);
+  grunt.registerMultiTask('appcCoverage', 'Grunt task to load coverage results and submit them to coverage.appcelerator.com', appcCoverage);
 
 };
