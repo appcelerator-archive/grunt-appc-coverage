@@ -38,7 +38,7 @@ module.exports = function (grunt) {
     kahvesi: { src: ['test/**/*_test.js'] },
 
     // Configuration to be run (and then tested).
-    appc_coverage: {
+    appcCoverage: {
       default_options: {
         src: 'coverage/lcov.info',
         force: true
@@ -56,7 +56,7 @@ module.exports = function (grunt) {
 
   // Whenever the "test" task is run, first clean the "tmp" dir, then run this
   // plugin's task(s), then test the result.
-  grunt.registerTask('test', ['clean', 'appcJs','mochaTest:unit', 'kahvesi', 'appc_coverage']);
+  grunt.registerTask('test', ['clean', 'appcJs','mochaTest:unit', 'kahvesi', 'appcCoverage']);
 
   // By default, lint and run all tests.
   grunt.registerTask('default', ['jshint', 'appcJs','mochaTest:unit']);
