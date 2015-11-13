@@ -40,6 +40,7 @@ module.exports = function (grunt) {
     // Configuration to be run (and then tested).
     appcCoverage: {
       default_options: {
+        project: 'foo',
         src: 'coverage/lcov.info',
         force: true
       }

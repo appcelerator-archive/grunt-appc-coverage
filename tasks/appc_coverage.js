@@ -61,16 +61,36 @@ module.exports = function (grunt) {
 
     var objectToUpload = {};
     // Get options
-    objectToUpload.options = coverage.getOptions();
+    objectToUpload.project = process.env.npm_package_name;
+    objectToUpload.modules = {};
+    var options = coverage.getOptions();
+    if(options.git.branch) {
+      objectToUpload.branch = options.git.branch;
+    }
+    //objectToUpload.options = coverage.getOptions();
     // parse Lcov
     coverage.parseLcov( grunt.file.read(coverageFile), function (err, data) {
       if (err) {
         return callback(err);
       }
-      objectToUpload.coverage = data;
+      objectToUpload.coverage = Number((calculatePercentage(data)).toFixed(2));
+      objectToUpload.modules = data;
       // Upload Data
       coverage.upload(objectToUpload, callback);
     });
+  }
+
+  function calculatePercentage(coverage) {
+    var percentage = 0,
+      max = coverage.length;
+
+    for (var i = 0; i < max; i++) {
+      var current = coverage[i],
+        currentPercentage = parseFloat(current.lines.hit) / parseFloat(current.lines.found) * 100;
+        percentage += currentPercentage;
+    }
+    percentage /= max;
+    return percentage;
   }
 
   grunt.registerMultiTask('appcCoverage', 'Grunt task to load coverage results and submit them to coverage.appcelerator.com', appcCoverage);
