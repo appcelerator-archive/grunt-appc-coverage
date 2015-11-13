@@ -67,6 +67,9 @@ module.exports = function (grunt) {
     if(options.git.branch) {
       objectToUpload.branch = options.git.branch;
     }
+    if(options.git.pullRequest) {
+      objectToUpload.pull_request = options.git.pullRequest;
+    }    
     //objectToUpload.options = coverage.getOptions();
     // parse Lcov
     coverage.parseLcov( grunt.file.read(coverageFile), function (err, data) {
