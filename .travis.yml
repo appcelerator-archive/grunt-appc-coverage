@@ -6,4 +6,5 @@ node_js:
 script:
 #  - npm install -g grunt-cli
 #  - npm install
+#  - DEBUG=grunt-appc-coverage:* npm test
   - npm test

@@ -26,6 +26,7 @@ In your project's Gruntfile, add a section named `appcCoverage` to the data obje
 grunt.initConfig({
   appcCoverage: {
     default_options: {
+      project: '<package-name>',
       src: ['paths', 'to', 'lcov.info'],
       force: true
     }

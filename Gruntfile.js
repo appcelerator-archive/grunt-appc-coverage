@@ -14,7 +14,6 @@ module.exports = function (grunt) {
 
   // Project configuration.
   grunt.initConfig({
-
     mochaTest: {
       options: {
         timeout: 3000,
@@ -40,9 +39,9 @@ module.exports = function (grunt) {
     // Configuration to be run (and then tested).
     appcCoverage: {
       default_options: {
-        project: 'foo',
+        project: 'grunt-appc-coverage',
         src: 'coverage/lcov.info',
-        force: true
+        // force: false
       }
     },
 
@@ -60,6 +59,6 @@ module.exports = function (grunt) {
   grunt.registerTask('test', ['clean', 'appcJs','mochaTest:unit', 'kahvesi', 'appcCoverage']);
 
   // By default, lint and run all tests.
-  grunt.registerTask('default', ['jshint', 'appcJs','mochaTest:unit']);
+  grunt.registerTask('default', ['appcJs','mochaTest:unit']);
 
 };

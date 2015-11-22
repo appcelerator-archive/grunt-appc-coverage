@@ -1,23 +1,22 @@
 var test = require('unit.js'),
-    coverage = require('../lib/appcCoverage.js'),
+    AppcCoverage = require('../lib/appcCoverage'),
+    coverage = AppcCoverage('grunt-appc-coverage'),
     fs = require('fs'),
     dns = require('dns'),
     url = require('url');
 
 describe('library', function () {
-    it('coverage.getOptions();', function () {
-        var options = coverage.getOptions();
-
-        test.object(options)
+    it('coverage options', function () {
+        test.object(coverage)
             .hasProperty('service')
             .hasProperty('git');
 
-        test.object(options.service)
+        test.object(coverage.service)
             .hasProperty('name')
             .hasProperty('jobId');
 
         if (process.env.TRAVIS) {
-            test.assert(options.service.name === 'travis-ci', 'travis-ci not being set');
+            test.assert(coverage.service.name === 'travis-ci', 'travis-ci not being set');
         }
     });
 
@@ -32,8 +31,8 @@ describe('library', function () {
 });
 
 describe('DNS Check', function() {
-    it('dns.resolve(' + url.parse(coverage.SERVER).host + ')', function (done) {
-        dns.resolve(url.parse(coverage.SERVER).host, function (err, addresses) {
+    it('dns.resolve(' + url.parse(AppcCoverage.SERVER).host + ')', function (done) {
+        dns.resolve(url.parse(AppcCoverage.SERVER).host, function (err, addresses) {
             test.assert(err == null, err);
             test.assert(addresses.length > 0, 'No addresses found');
             done();
