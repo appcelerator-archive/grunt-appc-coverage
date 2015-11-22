@@ -15,7 +15,7 @@ describe('library', function () {
             .hasProperty('name')
             .hasProperty('jobId');
 
-        if (process.env.TRAVIS) {
+        if (process.env.TRAVIS && !coverage.isLocal()) {
             test.assert(coverage.service.name === 'travis-ci', 'travis-ci not being set');
         }
     });
@@ -23,8 +23,15 @@ describe('library', function () {
     it('coverage.parseLcov();', function (done) {
         var lcovString = fs.readFileSync('./test/fixtures/lcov.info').toString();
         coverage.parseLcov(lcovString, function(err, data) {
-            test.assert(err == null, err);
+            test.assert(err === null, err);
             test.assert(JSON.stringify(data) === fs.readFileSync('./test/expected/coverage.txt').toString(), 'Files did not match');
+            done();
+        });
+    });
+
+    it('coverage.getCoverage()', function (done) {
+        coverage.getCoverage(function (err, coverage) {
+            test.assert(err === null, err);
             done();
         });
     });

@@ -28,7 +28,7 @@
     "lcov-parse": "0.0.9",
     "load-grunt-tasks": "~0.3.0",
     "mocha": "^2.1.0",
-    "request": "~2.48.0",
+    "request": "~2.51.0",
     "unit.js": "*"
   },
   "devDependencies": {

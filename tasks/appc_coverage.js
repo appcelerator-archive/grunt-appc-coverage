@@ -113,7 +113,7 @@ module.exports = function (grunt) {
                 grunt.log.ok('[current] Coverage: %s%', objectToUpload.coverage);
                 var diff = (objectToUpload.coverage - masterCoverage).toFixed(2),
                     threshold = 1, // percentage threshold
-                    status = diff <= -threshold ? (force ? 'warn' : 'error') : 'ok',
+                    status = diff <= -threshold ? (force || coverage.isLocal() ? 'warn' : 'error') : 'ok',
                     message = 'The coverage for the project has changed ' + diff + '%';
 
                 status !== 'error' && grunt.log[status](message);
