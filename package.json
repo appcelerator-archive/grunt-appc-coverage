@@ -1,6 +1,6 @@
 {
   "name": "grunt-appc-coverage",
-  "version": "0.2.8",
+  "version": "0.3.0",
   "description": "Grunt task to load coverage results and submit them to coverage.appcelerator.com",
   "repository": "https://github.com/appcelerator-modules/grunt-appc-coverage",
   "author": {
