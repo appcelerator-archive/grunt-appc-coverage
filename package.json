@@ -34,7 +34,8 @@
     "grunt-bump": "^0.3.0",
     "grunt-cli": "*",
     "grunt-contrib-clean": "^0.5.0",
-    "jshint": "^2.8.0"
+    "jshint": "^2.8.0",
+    "unit.js": "*"
   },
   "peerDependencies": {
     "grunt": "~0.4.5"
