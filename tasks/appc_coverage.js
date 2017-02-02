@@ -1,6 +1,5 @@
 /*
 * grunt-appc-coverage
-* 
 *
 * Copyright (c) 2015 Appcelerator
 * Licensed under the MIT license.
