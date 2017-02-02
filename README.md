@@ -1,4 +1,4 @@
-# grunt-appc-coverage [![Build Status](https://travis-ci.org/appcelerator-modules/grunt-appc-coverage.svg?branch=master)](https://travis-ci.org/appcelerator-modules/grunt-appc-coverage) [![Coverage Status](https://coverage.appcelerator.com/appcelerator-modules/grunt-appc-coverage/label_master.svg)](https://coverage.appcelerator.com/appcelerator-modules#grunt-appc-coverage)
+# grunt-appc-coverage [![Build Status](https://travis-ci.org/appcelerator-modules/grunt-appc-coverage.svg?branch=master)](https://travis-ci.org/appcelerator-modules/grunt-appc-coverage) [![Coverage Status](https://coverage.appcelerator.com/appcelerator-modules/grunt-appc-coverage/label_master.svg)](https://appcelerator.com/)
 
 > Grunt task to load coverage results and submit them to coverage.appcelerator.com
 
