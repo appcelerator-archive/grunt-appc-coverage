@@ -14,34 +14,34 @@ module.exports = function (grunt) {
 
 	// Project configuration.
 	grunt.initConfig({
-	mocha_istanbul: {
-		coverage: {
-			src: 'test',
-			options: {
-				timeout: 30000,
-				ignoreLeaks: false
+		mocha_istanbul: {
+			coverage: {
+				src: 'test',
+				options: {
+					timeout: 30000,
+					ignoreLeaks: false
+				}
+			}
+		},
+
+		appcJs: {
+			src: ['lib/**/*.js']
+		},
+
+		// Before generating any new files, remove any previously-created files.
+		clean: {
+			tests: ['tmp']
+		},
+
+		// Configuration to be run (and then tested).
+		appcCoverage: {
+				default_options: {
+				project: 'appcelerator-modules/grunt-appc-coverage',
+				src: 'coverage/lcov.info',
+				// force: false
 			}
 		}
-	},
-
-	appcJs: {
-		src: ['lib/**/*.js']
-	},
-
-	// Before generating any new files, remove any previously-created files.
-	clean: {
-		tests: ['tmp']
-	},
-
-	// Configuration to be run (and then tested).
-	appcCoverage: {
-			default_options: {
-			project: 'appcelerator-modules/grunt-appc-coverage',
-			src: 'coverage/lcov.info',
-			// force: false
-		}
-	}
-});
+	});
 
 	// Actually load this plugin's task(s).
 	grunt.loadTasks('tasks');
