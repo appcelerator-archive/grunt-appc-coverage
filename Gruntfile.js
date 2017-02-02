@@ -39,7 +39,7 @@ module.exports = function (grunt) {
     // Configuration to be run (and then tested).
     appcCoverage: {
       default_options: {
-        project: 'grunt-appc-coverage',
+        project: 'appcelerator-modules/grunt-appc-coverage',
         src: 'coverage/lcov.info',
         // force: false
       }
