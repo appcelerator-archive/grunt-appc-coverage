@@ -56,7 +56,7 @@ timestamps {
 
 				stage('Publish') {
 					if (tagGit) {
-						sh "git tag -a '${packageVersion}' -f -m 'See ${env.BUILD_URL} for more information.\n\nChanges:\n${changes.replaceAll("'", "\\'")}'"
+						sh "git tag -a '${packageVersion}' -f -m 'See ${env.BUILD_URL} for more information.\n\nChanges:\n${changes.replaceAll("'", "\\\\'")}'"
 
 						// HACK to provide credentials for git tag push
 						// Replace once https://issues.jenkins-ci.org/browse/JENKINS-28335 is resolved
