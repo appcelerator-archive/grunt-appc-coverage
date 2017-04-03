@@ -63,7 +63,9 @@ timestamps {
 						withCredentials([usernamePassword(credentialsId: 'f63e8a0a-536e-4695-aaf1-7a0098147b59', passwordVariable: 'PASS', usernameVariable: 'USER')]) {
 							echo "Force pushing ${packageVersion} tag"
 							def url = sh(returnStdout: true, script: 'git config --get remote.origin.url').trim()
-							def org, project = parseOriginURL(url)
+							def parts = parseOriginURL(url)
+							def org = parts[0]
+							def project = parts[1]
 							sh "git config remote.origin.url 'https://${USER}:${PASS}@github.com/${org}/${project}.git'"
 							sh "git push origin ${packageVersion} --force"
 							// Reset the url value
