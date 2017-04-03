@@ -29,8 +29,6 @@ timestamps {
 			def packageJSON = jsonParse(readFile('package.json'))
 			packageVersion = packageJSON['version']
 			currentBuild.displayName = "#${packageVersion}-${currentBuild.number}"
-
-			changes = sh(returnStdout: true, script: "git log `git describe --tags --abbrev=0`..HEAD --oneline | sed 's/\$/\\\\\\n/g'").trim()
 		}
 
 		nodejs(nodeJSInstallationName: 'node 6.9.5') {
@@ -56,9 +54,8 @@ timestamps {
 
 				stage('Publish') {
 					if (tagGit) {
-						echo changes
-						echo changes.replaceAll("'", "\\\\'")
-						sh "git tag -a '${packageVersion}' -f -m 'See ${env.BUILD_URL} for more information.\n\nChanges:\n${changes.replaceAll("'", "\\\\'")}'"
+						// FIXME Include changes in the tag message?
+						sh "git tag -a '${packageVersion}' -f -m 'See ${env.BUILD_URL} for more information.'"
 
 						// HACK to provide credentials for git tag push
 						// Replace once https://issues.jenkins-ci.org/browse/JENKINS-28335 is resolved
