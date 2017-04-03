@@ -55,7 +55,7 @@ timestamps {
 							echo "Force pushing ${packageVersion} tag"
 							def url = sh(returnStdout: true, script: 'git config --get remote.origin.url').trim()
 							// Hack the url to include username and password in the URL!
-							def matcher = (url =~ "github.com[:/]([^/]+)/(.+)?\.git")
+							def matcher = (url =~ "github.com[:/]([^/]+)/(.+)?\\.git")
 							def org = matcher[0][1]
 							def project = matcher[0][1]
 							sh "git config remote.origin.url 'https://${USER}:${PASS}@github.com/${org}/${project}.git'"
