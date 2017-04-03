@@ -23,7 +23,7 @@ timestamps {
 			checkout scm
 
 			isPR = env.BRANCH_NAME.startsWith('PR-')
-			// tagGit = !isPR
+			tagGit = !isPR
 			publish = !isPR
 
 			def packageJSON = jsonParse(readFile('package.json'))
