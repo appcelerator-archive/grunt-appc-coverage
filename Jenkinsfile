@@ -14,7 +14,7 @@ timestamps {
 			checkout scm
 
 			isPR = env.BRANCH_NAME.startsWith('PR-')
-			tagGit = !isPR
+			// tagGit = !isPR
 			publish = !isPR
 
 			def packageJSON = jsonParse(readFile('package.json'))
@@ -47,14 +47,22 @@ timestamps {
 
 				stage('Publish') {
 					if (tagGit) {
-						sh "git tag -a '${packageVersion}' -m 'Built by ${env.BUILD_USER}. See ${env.BUILD_URL} for more information.\n\nChanges:\n${changes}'"
+						sh "git tag -a '${packageVersion}' -m 'See ${env.BUILD_URL} for more information.\n\nChanges:\n${changes}'"
 
 						// HACK to provide credentials for git tag push
 						// Replace once https://issues.jenkins-ci.org/browse/JENKINS-28335 is resolved
 						withCredentials([usernamePassword(credentialsId: 'f63e8a0a-536e-4695-aaf1-7a0098147b59', passwordVariable: 'PASS', usernameVariable: 'USER')]) {
 							echo "Force pushing ${packageVersion} tag"
-							sh "echo 'protocol=https\nhost=github.com\nusername=${USER}\npassword=${PASS}\n\n' | git credential approve "
+							def url = sh(returnStdout: true, script: 'git config --get remote.origin.url').trim()
+							// Hack the url to include username and password in the URL!
+							github.com:sgtcoolguy/grunt-appc-coverage.git
+							def matcher = (url =~ "github.com[:/]([^/]+)/(.+)?\.git")
+							def org = matcher[0][1]
+							def project = matcher[0][1]
+							sh "git config remote.origin.url 'https://${USER}:${PASS}@github.com/${org}/${project}.git'"
 							sh "git push origin ${packageVersion} --force"
+							// Reset the url value
+							sh "git config remote.origin.url \"${url}\""
 						} // withCredentials
 					} // tagGit
 
