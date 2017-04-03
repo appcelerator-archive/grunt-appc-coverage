@@ -3,6 +3,15 @@ def jsonParse(def json) {
 	new groovy.json.JsonSlurperClassic().parseText(json)
 }
 
+@NonCPS
+def parseOriginURL(def url) {
+	// Hack the url to include username and password in the URL!
+	def matcher = (url =~ "github.com[:/]([^/]+)/(.+)?\\.git")
+	def org = matcher[0][1]
+	def project = matcher[0][2]
+	return [org, project]
+}
+
 timestamps {
 	node('(osx || linux) && git && npm-publish') {
 		def packageVersion = ''
@@ -54,10 +63,7 @@ timestamps {
 						withCredentials([usernamePassword(credentialsId: 'f63e8a0a-536e-4695-aaf1-7a0098147b59', passwordVariable: 'PASS', usernameVariable: 'USER')]) {
 							echo "Force pushing ${packageVersion} tag"
 							def url = sh(returnStdout: true, script: 'git config --get remote.origin.url').trim()
-							// Hack the url to include username and password in the URL!
-							def matcher = (url =~ "github.com[:/]([^/]+)/(.+)?\\.git")
-							def org = matcher[0][1]
-							def project = matcher[0][1]
+							def org, project = parseOriginURL(url)
 							sh "git config remote.origin.url 'https://${USER}:${PASS}@github.com/${org}/${project}.git'"
 							sh "git push origin ${packageVersion} --force"
 							// Reset the url value
