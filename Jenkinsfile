@@ -56,7 +56,7 @@ timestamps {
 
 				stage('Publish') {
 					if (tagGit) {
-						sh "git tag -a '${packageVersion}' -m 'See ${env.BUILD_URL} for more information.\n\nChanges:\n${changes}'"
+						sh "git tag -a '${packageVersion}' -f -m 'See ${env.BUILD_URL} for more information.\n\nChanges:\n${changes}'"
 
 						// HACK to provide credentials for git tag push
 						// Replace once https://issues.jenkins-ci.org/browse/JENKINS-28335 is resolved
@@ -66,10 +66,15 @@ timestamps {
 							def parts = parseOriginURL(url)
 							def org = parts[0]
 							def project = parts[1]
-							sh "git config remote.origin.url 'https://${USER}:${PASS}@github.com/${org}/${project}.git'"
-							sh "git push origin ${packageVersion} --force"
-							// Reset the url value
-							sh "git config remote.origin.url \"${url}\""
+							try {
+								sh "git config remote.origin.url 'https://${USER}:${PASS}@github.com/${org}/${project}.git'"
+								sh "git push origin ${packageVersion} --force"
+							} catch (e) {
+								throw e
+							} finally {
+								// Reset the url value
+								sh "git config remote.origin.url \"${url}\""
+							}
 						} // withCredentials
 					} // tagGit
 
